@@ -1,7 +1,7 @@
 package community.happenuponjava.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+//import com.zaxxer.hikari.HikariConfig;
+//import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -32,15 +32,18 @@ public class DataSourceConfig
     @Bean
     public DataSource dataSource()
     {
-        if (dbValue.equalsIgnoreCase("POSTGRESQL"))
-        {
-            // Assume Heroku
-            HikariConfig config = new HikariConfig();
-            config.setDriverClassName("org.postgresql.Driver");
-            config.setJdbcUrl(dbUrl);
-            return new HikariDataSource(config);
-        } else
-        {
+        /**
+         * Having a problem with Hikari(database issue and running my backend in h2)
+         */
+//        if (dbValue.equalsIgnoreCase("POSTGRESQL"))
+//        {
+//            // Assume Heroku
+//            HikariConfig config = new HikariConfig();
+//            config.setDriverClassName("org.postgresql.Driver");
+//            config.setJdbcUrl(dbUrl);
+//            return new HikariDataSource(config);
+//        } else
+//        {
             //Assume H2
             String myUrlString = "jdbc:h2:mem:testdb";
             String myDriverClass = "org.h2.Driver";
@@ -54,6 +57,6 @@ public class DataSourceConfig
                     .driverClassName(myDriverClass)
                     .build();
 
-        }
+//        }
     }
 }

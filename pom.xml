@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.5</version>
+        <version>2.2.8.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>community</groupId>
@@ -107,11 +107,29 @@
 
     <!-- Have to finish pom file below to deploy to Heroku -->
     <build>
+<!--        <finalName>happenUpon</finalName>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+    <!-- Heroku dependencies, have to configure -->
+<!--            <plugin>-->
+<!--                <groupId>com.heroku.sdk</groupId>-->
+<!--                <artifactId>heroku-maven-plugin</artifactId>-->
+<!--                <version>3.0.2</version>-->
+<!--                <configuration>-->
+<!--                    <appName>happenUpon</appName>-->
+<!--                    <includeTarget>false</includeTarget>-->
+<!--                    <includes>-->
+<!--                        <include>happenUpon/happenUpon.jar</include>-->
+<!--                    </includes>-->
+<!--                    <jdkVersion>8</jdkVersion>-->
+<!--                    <processTypes>-->
+<!--                        <web>java $Java_OPTS -Dserver.port=$2019 -jar target/happenUpon.jar</web>-->
+<!--                    </processTypes>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
