@@ -1,6 +1,9 @@
 package com.lambdaschool.foundation.controllers;
 
+import com.lambdaschool.foundation.models.Location;
 import com.lambdaschool.foundation.models.User;
+import com.lambdaschool.foundation.models.UserLocation;
+import com.lambdaschool.foundation.services.UserLocationService;
 import com.lambdaschool.foundation.services.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class UserController
      */
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserLocationService userLocationService;
 
     /**
      * Returns a list of all users
@@ -232,4 +238,34 @@ public class UserController
         return new ResponseEntity<>(u,
             HttpStatus.OK);
     }
+
+    /**
+     * Return a list of all userlocations to display on map
+     * Example: <a href="http://localhost:2019/users/userlocations
+     *
+     * @return list of userlocations
+     */
+    @GetMapping(value = "/userlocations", produces = {"application/json"})
+    public ResponseEntity<?> listAllUserLocations()
+    {
+        List<UserLocation> allUserLocations = userLocationService.findAll();
+        return new ResponseEntity<>(allUserLocations, HttpStatus.OK);
+    }
+
+    /**
+     * User to post location onto map
+     * Example: <a href="http://localhost:2019/users/postuserlocation
+     */
+//    @PostMapping(value = "/postuserlocation", produces = {"application/json"})
+//    public ResponseEntity<?> addUserLocation(@Valid @RequestBody UserLocation userlocation)
+//    {
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        User currentuser = userService.findByName(username);
+//
+//        userlocation.setLocationid(0);
+//        // Todo: Finish save function
+//        userlocation = userLocationService.save(currentuser.getUserid(), userlocation.getLocation());
+//
+//        return new ResponseEntity<>(userlocation, HttpStatus.CREATED);
+//    }
 }
