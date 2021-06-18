@@ -89,7 +89,7 @@ public class Location extends Auditable{
         return userLocation;
     }
 
-    public void setUserLocations(Set<UserLocation> userLocations) {
+    public void setUserLocation(Set<UserLocation> userLocations) {
         this.userLocation = userLocations;
     }
 }
