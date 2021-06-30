@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "location")
+@Table(name = "locations")
 public class Location extends Auditable{
 
     @Id
@@ -25,24 +25,32 @@ public class Location extends Auditable{
 
     private String description;
 
-    @OneToMany(mappedBy = "location",
-    cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "location", allowSetters = true)
-    private Set<UserLocation> userLocation = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "userid", nullable = false)
+    @JsonIgnoreProperties(value = "locations", allowSetters = true)
+    private User user;
+
+//    @OneToMany(mappedBy = "location",
+//    cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIgnoreProperties(value = "location", allowSetters = true)
+//    private Set<UserLocation> userLocation = new HashSet<>();
 
     public Location() {
     }
 
-    public Location(long latitude, long longitude) {
+    public Location(long latitude, long longitude, String locationname, User user) {
         this.latitude = latitude;
         this.longitude = longitude;
+        this.locationname = locationname;
+        this.user = user;
     }
 
-    public Location(long latitude, long longitude, String locationname, String description) {
+    public Location(long latitude, long longitude, String locationname, String description, User user) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.locationname = locationname;
         this.description = description;
+        this.user = user;
     }
 
     public long getLocationid() {
@@ -85,11 +93,23 @@ public class Location extends Auditable{
         this.description = description;
     }
 
-    public Set<UserLocation> getUserLocations() {
-        return userLocation;
+    /**
+     * For userlocation join table(deprecated)
+     */
+//    public Set<UserLocation> getUserLocations() {
+//        return userLocation;
+//    }
+//
+//    public void setUserLocation(Set<UserLocation> userLocations) {
+//        this.userLocation = userLocations;
+//    }
+
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUserLocation(Set<UserLocation> userLocations) {
-        this.userLocation = userLocations;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

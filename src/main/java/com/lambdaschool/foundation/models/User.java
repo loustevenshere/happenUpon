@@ -73,12 +73,21 @@ public class User
     private Set<UserRoles> roles = new HashSet<>();
 
     /**
+     * Join relationship one to many between users and locations
+     */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user",
+    allowSetters = true)
+    private List<Location> locations = new ArrayList<>();
+
+    /**
      * Join relationship between users and locations in UserLocation model
      */
-    @OneToMany(mappedBy = "user",
-    cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "user", allowSetters = true)
-    private Set<UserLocation> userLocation = new HashSet<>();
+//    @OneToMany(mappedBy = "user",
+//    cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIgnoreProperties(value = "user", allowSetters = true)
+//    private Set<UserLocation> userLocation = new HashSet<>();
 
     /**
      * Default constructor used primarily by the JPA.
@@ -235,13 +244,25 @@ public class User
         this.roles = roles;
     }
 
-    public Set<UserLocation> getUserLocation() {
-        return userLocation;
+    public List<Location> getLocations() {
+        return locations;
     }
 
-    public void setUserLocation(Set<UserLocation> userLocation) {
-        this.userLocation = userLocation;
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
+
+    /**
+     * For userlocations join table
+     */
+
+//    public Set<UserLocation> getUserLocation() {
+//        return userLocation;
+//    }
+//
+//    public void setUserLocation(Set<UserLocation> userLocation) {
+//        this.userLocation = userLocation;
+//    }
 
     /**
      * Internally, user security requires a list of authorities, roles, that the user has. This method is a simple way to provide those.
