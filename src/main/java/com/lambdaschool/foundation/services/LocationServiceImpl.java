@@ -25,7 +25,6 @@ public class LocationServiceImpl implements LocationService {
 // Todo: Start here
     @Override
     public Location save(long userid, Location location) {
-        User currentuser = userService.findUserById(userid);
 
         Location saveLocation = new Location();
 
@@ -33,7 +32,12 @@ public class LocationServiceImpl implements LocationService {
         saveLocation.setDescription(location.getDescription());
         saveLocation.setLatitude(location.getLatitude());
         saveLocation.setLongitude(location.getLongitude());
-        saveLocation.setUserLocation(currentuser, saveLocation);
-        return null;
+
+        return saveLocation;
+    }
+
+    @Override
+    public void deleteAll() {
+        locationRepository.deleteAll();
     }
 }

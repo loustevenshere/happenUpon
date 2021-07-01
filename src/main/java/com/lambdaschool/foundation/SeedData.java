@@ -3,10 +3,8 @@ package com.lambdaschool.foundation;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
-import com.lambdaschool.foundation.models.Role;
-import com.lambdaschool.foundation.models.User;
-import com.lambdaschool.foundation.models.UserRoles;
-import com.lambdaschool.foundation.models.Useremail;
+import com.lambdaschool.foundation.models.*;
+import com.lambdaschool.foundation.services.LocationService;
 import com.lambdaschool.foundation.services.RoleService;
 import com.lambdaschool.foundation.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +37,9 @@ public class SeedData
     @Autowired
     UserService userService;
 
+    @Autowired
+    LocationService locationService;
+
     /**
      * Generates test, seed data for our application
      * First a set of known data is seeded into our database.
@@ -55,6 +56,7 @@ public class SeedData
     {
         userService.deleteAll();
         roleService.deleteAll();
+        locationService.deleteAll();
         Role r1 = new Role("admin");
         Role r2 = new Role("user");
         Role r3 = new Role("data");
@@ -105,6 +107,7 @@ public class SeedData
             .add(new Useremail(u2,
                 "bunny@email.local"));
         userService.save(u2);
+
 
         // user
         User u3 = new User("barnbarn",
@@ -163,5 +166,8 @@ public class SeedData
                 userService.save(fakeUser);
             }
         }
+
+        // Adding locations
+        Location l1 = new Location(157890324, 25739487);
     }
 }
