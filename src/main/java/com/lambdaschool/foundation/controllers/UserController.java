@@ -263,9 +263,27 @@ public class UserController
 //        User currentuser = userService.findByName(username);
 //
 //        userlocation.setLocationid(0);
-//        // Todo: Finish save function
 //        userlocation = userLocationService.save(currentuser.getUserid(), userlocation.getLocation());
 //
 //        return new ResponseEntity<>(userlocation, HttpStatus.CREATED);
 //    }
+
+    /**
+     * Add location object to user
+     * Example: <a href="http://localhost:2019/users/location
+     */
+    @PostMapping(value = "/location", produces = {"application/json"})
+    public ResponseEntity<?> addUserLocation(@RequestBody Location location, long userid)
+    {
+        // Find user by userid
+        User user = userService.findUserById(userid);
+        UserLocation newuserlocation = new UserLocation(user, location);
+
+
+
+        // Add location object to user- do we need userLocation?
+        // TODO: Fork project and try with one to many of user and location
+        user.getUserLocation().add(newuserlocation);
+        return new ResponseEntity<>(newuserlocation, HttpStatus.OK);
+    }
 }

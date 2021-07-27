@@ -51,17 +51,17 @@ public class UserLocationController {
      * Example: <a href="http://localhost:2019/users/postuserlocation
      */
 
-    @PostMapping(value = "/postuserlocation", produces = {"application/json"})
-    public ResponseEntity<?> addUserLocation(@Valid @RequestBody Location location)
-    {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User currentuser = userService.findByName(username);
-
-        location.setLocationid(0);
-        location = locationService.save(currentuser.getUserid(), location);
-
-        return new ResponseEntity<>(location, HttpStatus.CREATED);
-    }
+//    @PostMapping(value = "/postuserlocation", produces = {"application/json"})
+//    public ResponseEntity<?> addUserLocation(@Valid @RequestBody Location location)
+//    {
+//
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        User currentuser = userService.findByName(username);
+//
+//        location.setLocationid(0);
+//        location = locationService.save(currentuser.getUserid(), location);
+//
+//        return new ResponseEntity<>(location, HttpStatus.CREATED);
+//    }
 
 }

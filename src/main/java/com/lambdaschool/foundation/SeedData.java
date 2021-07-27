@@ -168,6 +168,13 @@ public class SeedData
         }
 
         // Adding locations
-        Location l1 = new Location(157890324, 25739487);
+        Location l1 = new Location(400260, 25, "The met", "A beautiful place to be");
+        Location l2 = new Location(123456789, 987654321, "Your moms house","drinking brown liquor");
+
+        // How to save a location- location object and user object
+        LocationService.save(l1);
+        LocationService.save(l2);
+
+
     }
 }
