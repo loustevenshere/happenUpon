@@ -85,7 +85,7 @@ public class SeedData
             .add(new Useremail(u1,
                 "admin@mymail.local"));
 
-        userService.save(u1);
+//        userService.save(u1);
 
         // data, user
         User u2 = new User("cinnamon",
@@ -137,43 +137,50 @@ public class SeedData
                 r2));
         userService.save(u5);
 
-        if (false)
-        {
-            // using JavaFaker create a bunch of regular users
-            // https://www.baeldung.com/java-faker
-            // https://www.baeldung.com/regular-expressions-java
 
-            FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en-US"),
-                new RandomService());
-            Faker nameFaker = new Faker(new Locale("en-US"));
 
-            for (int i = 0; i < 25; i++)
-            {
-                new User();
-                User fakeUser;
-
-                fakeUser = new User(nameFaker.name()
-                    .username(),
-                    "password",
-                    nameFaker.internet()
-                        .emailAddress());
-                fakeUser.getRoles()
-                    .add(new UserRoles(fakeUser,
-                        r2));
-                fakeUser.getUseremails()
-                    .add(new Useremail(fakeUser,
-                        fakeValuesService.bothify("????##@gmail.com")));
-                userService.save(fakeUser);
-            }
-        }
+//        if (false)
+//        {
+//            // using JavaFaker create a bunch of regular users
+//            // https://www.baeldung.com/java-faker
+//            // https://www.baeldung.com/regular-expressions-java
+//
+//            FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en-US"),
+//                new RandomService());
+//            Faker nameFaker = new Faker(new Locale("en-US"));
+//
+//            for (int i = 0; i < 25; i++)
+//            {
+//                new User();
+//                User fakeUser;
+//
+//                fakeUser = new User(nameFaker.name()
+//                    .username(),
+//                    "password",
+//                    nameFaker.internet()
+//                        .emailAddress());
+//                fakeUser.getRoles()
+//                    .add(new UserRoles(fakeUser,
+//                        r2));
+//                fakeUser.getUseremails()
+//                    .add(new Useremail(fakeUser,
+//                        fakeValuesService.bothify("????##@gmail.com")));
+//                userService.save(fakeUser);
+//            }
+//        }
 
         // Adding locations
         Location l1 = new Location(400260, 25, "The met", "A beautiful place to be");
+        l1 = locationService.save(l1);
         Location l2 = new Location(123456789, 987654321, "Your moms house","drinking brown liquor");
+        l2 = locationService.save(l2);
 
         // How to save a location- location object and user object
-        LocationService.save(l1);
-        LocationService.save(l2);
+
+        u1.getUserLocation().add(new UserLocation(u1, l1));
+        u2.getUserLocation().add(new UserLocation(u1, l2));
+        userService.save(u1);
+
 
 
     }

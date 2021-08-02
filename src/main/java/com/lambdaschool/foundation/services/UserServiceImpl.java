@@ -1,10 +1,7 @@
 package com.lambdaschool.foundation.services;
 
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
-import com.lambdaschool.foundation.models.Role;
-import com.lambdaschool.foundation.models.User;
-import com.lambdaschool.foundation.models.UserRoles;
-import com.lambdaschool.foundation.models.Useremail;
+import com.lambdaschool.foundation.models.*;
 import com.lambdaschool.foundation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -123,6 +120,15 @@ public class UserServiceImpl
                 .add(new Useremail(newUser,
                     ue.getUseremail()));
         }
+        // added userlocation
+        newUser.getUserLocation()
+                .clear();
+        for (UserLocation ul: user.getUserLocation())
+        {
+            newUser.getUserLocation()
+                    .add(new UserLocation(newUser,
+                            ul.getLocation()));
+        }
 
         return userrepos.save(newUser);
     }
@@ -169,6 +175,17 @@ public class UserServiceImpl
                     currentUser.getRoles()
                         .add(new UserRoles(currentUser,
                             addRole));
+                }
+            }
+            if (user.getUserLocation()
+            .size() > 0)
+            {
+                currentUser.getUserLocation()
+                        .clear();
+                for (UserLocation ul : user.getUserLocation())
+                {
+                    currentUser.getUserLocation()
+                            .add(new UserLocation(currentUser, ul.getLocation()));
                 }
             }
 
